@@ -8,7 +8,7 @@ const SignupForm = () => {
 
     }
     return(
-        <div>
+        <div clssName= 'd-flex align-items-center'>
             <Container>
                 <Row>
                     <Col xs="6" md='5'> 

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {Form, FormGroup, Label, Input} from 'reactstrap';
+import {Form, FormGroup, Label, Input, Container, Row, Col, Button} from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 const LoginForm = () => {
 
@@ -8,21 +9,34 @@ const LoginForm = () => {
     }
     return(
         <div> 
-            <div className = 'form'>
-                    <h5>Login to Propman </h5> <br />
-                    <Form onSubmit = {handleSubmit}  > 
-                        <FormGroup>
-                            <Label for= 'email'> Email </Label>
-                            <Input name='email' required placeholder = 'Enter email' onChange={e => setEmail(e.target.value)} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for ='password'>Password </Label>
-                            <Input type = 'password' required name='password' placeholder = 'Enter password' 
-                            onChange={e => setPassword(e.target.value)} />
-                        </FormGroup> <br />
-                        <Button> login </Button> {" "} <Link to= '/signup'> Don't have an account? </Link> <br />
-                    </Form>
-                </div>
+            <Container>
+                <Row>
+                    <Col xs="6" md='5'> 
+                        <div> 
+                            <p> 
+                                PropMan is a basic property management app dedicated to managing your properties like
+                                real housing estate, shopping complex and its tenants. collecting and managing rents etc.
+                            </p>
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className = 'form'>
+                            <Form onSubmit = {handleSubmit}  > 
+                                <FormGroup>
+                                    <Label for= 'email'> User name </Label>
+                                    <Input name='userName' required placeholder = 'Enter email' onChange={e => {}} />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for ='password'>Password </Label>
+                                    <Input type = 'password' required name='password' placeholder = 'Enter password' 
+                                    onChange={e => {}} />
+                                </FormGroup> <br />
+                                <Button> login </Button> {" "} <Link to= '/signup'> Don't have an account? </Link> <br />
+                            </Form>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
         </div>
     )
 }
