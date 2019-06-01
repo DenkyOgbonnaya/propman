@@ -2,7 +2,7 @@ import React from 'react';
 import {Table, Button} from 'reactstrap';
 import EditableProperty from './editableProperty';
 
-const EditablePropertyList = ({properties}) => {
+const EditablePropertyList = ({properties, submitUpdate}) => {
 
     return(
         <div> 
@@ -21,6 +21,7 @@ const EditablePropertyList = ({properties}) => {
                             <EditableProperty
                                 key= {property._id}
                                 property = {property}
+                                submitUpdate = {submitUpdate}
                              />
                         )
                     }

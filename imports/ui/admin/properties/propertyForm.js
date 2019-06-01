@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import {fileToBase64} from './helper';
-import {addProperty} from './dataProvider';
 
-const PropertyForm = ({property, closePropertyForm, submitCreate}) => {
+const PropertyForm = ({property, closePropertyForm, submitCreate, submitUpdate}) => {
 
     const[name, setName] = useState(property.name || '');
     const[status, setStatus] = useState(property.status || '');
@@ -20,10 +18,14 @@ const PropertyForm = ({property, closePropertyForm, submitCreate}) => {
             closePropertyForm();
         }
         //TODO: update property
+        updateSubmit({name, status, address, city, state, price, image});
         closePropertyForm();
     }
     const createSubmit = property => {
         submitCreate(property);
+    }
+    const updateSubmit = property => {
+        submitUpdate(property);
     }
     return(
         <div> 
@@ -70,8 +72,8 @@ const PropertyForm = ({property, closePropertyForm, submitCreate}) => {
                     </Col>
                 </Row>
                 <FormGroup>
-                    <Label for="ddress">pictuire</Label>
-                    <Input type='file'  name="image" accept='image/*'  onChange = { e => setImage(e.target.files[0])}  />
+                    <Label for="ddress">picture</Label>
+                    <Input type='file'  name="image" accept='image/*'  onChange = { e => setImage(e.target.files[0])}  disabled = {property._id ? true : false } required />  />
                 </FormGroup>
         
                 <Button color= 'success' > { property._id ? 'Save' : 'Add'} </Button>

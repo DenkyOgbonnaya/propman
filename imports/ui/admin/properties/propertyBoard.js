@@ -2,16 +2,8 @@ import React, {useState, useEffect} from 'react';
 import EditablePropertyList from './editablePropertyList';
 import ToggleAblePropertyForm from './toggleAblePropertyForm';
 import {fileToBase64} from './helper';
-import {addProperty, getProperties} from './dataProvider';
+import {addProperty, getProperties, updateProperty} from './dataProvider';
 
-const properties =[
-    {_id: 'udj', name: 'House on a hill', price: '500,000', status: 'Available'},
-    {_id: 'jjf', name: 'House on water', price: '700,000', status: 'Occupied'},
-    {_id: 'uddkksj', name: 'House on a hill', price: '500,000', status: 'Available'},
-    {_id: 'udllalj', name: 'House on a hill', price: '500,000', status: 'Available'},
-    {_id: 'udeowj', name: 'House on a hill', price: '500,000', status: 'Available'},
-    {_id: 'u;;fdj', name: 'House on a hill', price: '500,000', status: 'Available'},
-]
 const PropertyBoard = () => {
     const[properties, setProperties] = useState([]);
 
@@ -23,8 +15,11 @@ const PropertyBoard = () => {
             }
         })
     }, []);
-    const handleCreateSubmit = (property) => {
+    const handleCreateSubmit = property => {
         createProperty(property);
+    }
+    const handleUpdatesubmit = property => {
+        updateProp(property);
     }
     async function createProperty(property){
         try{
@@ -36,6 +31,16 @@ const PropertyBoard = () => {
             }
         }catch(err){}
     }
+    const updateProp = property => {
+        setProperties( properties.map(prop => prop._id === property._id ? Object.assign({}, prop, property) : prop))
+
+        updateProperty()
+        .then(response => {
+            if(response.status === 'success'){
+                setProperties( properties.map(prop => prop._id === property._id ? Object.assign({}, prop, response.data) : prop))
+            }
+        })
+    }
     return(
         <div> 
             <div> 
@@ -43,8 +48,11 @@ const PropertyBoard = () => {
                 <ToggleAblePropertyForm
                     submitCreate = {handleCreateSubmit}
                  />
-                <br />
-                <EditablePropertyList properties = {properties}/>
+                <h4>Existing </h4>
+                <EditablePropertyList 
+                properties = {properties}
+                submitUpdate = {handleUpdatesubmit}
+                />
             </div>
         </div>
     )

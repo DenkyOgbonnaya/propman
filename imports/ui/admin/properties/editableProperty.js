@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropertyForm from './propertyForm';
 import {Button} from 'reactstrap';
 
-const EditableProperty = ({property}) => {
+const EditableProperty = ({property, submitUpdate}) => {
     const[openPropertyForm, setOpenPropertyForm] = useState((false));
 
     const closePropertyForm = () => {
@@ -13,7 +13,11 @@ const EditableProperty = ({property}) => {
         return(
             <tr> 
                 <td> 
-                <PropertyForm property= {property} closePropertyForm = {closePropertyForm} />
+                <PropertyForm 
+                    property= {property} 
+                    closePropertyForm = {closePropertyForm}
+                    submitUpdate= {submitUpdate}
+                />
                 </td>
             </tr>
         )   

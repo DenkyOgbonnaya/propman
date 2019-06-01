@@ -17,3 +17,15 @@ export const getProperties = () => {
     .then(res => {return res.json()})
     .catch(err => console.log(err))
 }
+export const updateProperty = (propertyId, userId) => {
+    return fetch(`/api/users/${userId}/properties`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({propertyId})
+    })
+    .then(res => { return res.json()})
+    .catch(err => console.log(err))
+}
