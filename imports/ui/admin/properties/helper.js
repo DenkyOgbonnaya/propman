@@ -3,7 +3,7 @@ export const fileToBase64 = (file) => {
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         return new Promise(resolve => {
 
-            var reader = new FileReader();
+            const reader = new FileReader();
             // Read file content on file loaded event
             reader.onload = function(event) {
               resolve(reader.result);

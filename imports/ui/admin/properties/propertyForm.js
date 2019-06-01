@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {fileToBase64} from './helper';
+import {addProperty} from './dataProvider';
 
-const PropertyForm = ({property, closePropertyForm}) => {
+const PropertyForm = ({property, closePropertyForm, submitCreate}) => {
 
     const[name, setName] = useState(property.name || '');
     const[status, setStatus] = useState(property.status || '');
@@ -14,14 +15,15 @@ const PropertyForm = ({property, closePropertyForm}) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-
         if(!property._id){
-            //TODO: create new property
-            fileToBase64(image).then(result => console.log('ths id it', result))
+            createSubmit({name, status, address, city, state, price, image});
             closePropertyForm();
         }
         //TODO: update property
         closePropertyForm();
+    }
+    const createSubmit = property => {
+        submitCreate(property);
     }
     return(
         <div> 
