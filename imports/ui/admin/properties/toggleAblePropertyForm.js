@@ -11,7 +11,7 @@ const ToggleAblePropertyForm = () => {
 
     if(openPropertyForm)
         return(
-            <PropertyForm closePropertyForm = {closePropertyForm} />
+            <PropertyForm property= {''} closePropertyForm = {closePropertyForm} />
         )
     return(
         <Button color ='success' onClick ={ () => setOpenPropertyForm(true)}> +New Property </Button>

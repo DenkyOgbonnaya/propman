@@ -13,7 +13,7 @@ const EditableProperty = ({property}) => {
         return(
             <tr> 
                 <td> 
-                <PropertyForm closePropertyForm = {closePropertyForm} />
+                <PropertyForm property= {property} closePropertyForm = {closePropertyForm} />
                 </td>
             </tr>
         )   
