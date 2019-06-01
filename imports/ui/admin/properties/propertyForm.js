@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {fileToBase64} from './helper';
 
 const PropertyForm = ({property, closePropertyForm}) => {
 
@@ -9,12 +10,14 @@ const PropertyForm = ({property, closePropertyForm}) => {
     const[city, setCity] = useState(property.city || '');
     const[state, setState] = useState(property.state || '');
     const[price, setPrice] = useState(property.price || '');
+    const[image, setImage] = useState(property.image || '' );
 
     const handleSubmit = e => {
         e.preventDefault();
 
         if(!property._id){
             //TODO: create new property
+            fileToBase64(image).then(result => console.log('ths id it', result))
             closePropertyForm();
         }
         //TODO: update property
@@ -66,7 +69,7 @@ const PropertyForm = ({property, closePropertyForm}) => {
                 </Row>
                 <FormGroup>
                     <Label for="ddress">pictuire</Label>
-                    <Input type='file'  name="image"  />
+                    <Input type='file'  name="image" accept='image/*'  onChange = { e => setImage(e.target.files[0])}  />
                 </FormGroup>
         
                 <Button color= 'success' > { property._id ? 'Save' : 'Add'} </Button>
