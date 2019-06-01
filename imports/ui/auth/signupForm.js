@@ -1,17 +1,30 @@
-import React from 'react';
-import {Form, Input, FormGroup, Label, Container, Row, Col, Button} from 'reactstrap';
+import React, {useState} from 'react';
+import {Form, Input, FormGroup, Label, Container, Row, Col, Button, Alert} from 'reactstrap';
 import {Link} from 'react-router-dom';
+import {signup} from './dataProvider';
 
-const SignupForm = () => {
+const SignupForm = (props) => {
+    const[userName, setUserName] = useState('');
+    const[email, setEmail] = useState('');
+    const[password, setPassword] = useState('');
+    const[isError, setIsError] = useState(false);
 
     const handleSubmit = e => {
-
+        e.preventDefault();
+        signup({userName, email, password})
+        .then(response => {
+            console.log(response)
+            if(response.status === 'success'){
+                props.history.push('/login');
+            }
+            setIsError(true);
+        })
     }
     return(
-        <div clssName= 'd-flex align-items-center'>
+        <div className= 'd-flex align-items-center'>
             <Container>
                 <Row>
-                    <Col xs="6" md='5'> 
+                    <Col xs="12" md='5'> 
                         <div> 
                             <h3>PropMan </h3>
                             <p> 
@@ -20,23 +33,24 @@ const SignupForm = () => {
                             </p>
                         </div>
                     </Col>
-                    <Col xs="6" md='7'>
+                    <Col xs="12" md='7'>
 
                         <div >
+                            {isError ? <Alert color= 'danger'>oops!, error creacting account!. </Alert> : ''}
                             <Form onSubmit = {handleSubmit} >
                                 <FormGroup>
                                     <Label for ='userName'>User Name </Label> 
-                                    <Input name='userName' required placeholder = 'Enter userName' onChange={e => {}} /> 
+                                    <Input name='userName' value={userName} required placeholder = 'Enter userName' required onChange={e => setUserName(e.target.value) }/> 
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for ='email'> Email </Label>
-                                    <Input name='email' required type='email' placeholder = 'Enter email' onChange={e => {}} />
+                                    <Input name='email' required type='email' value={email} required placeholder = 'Enter email' onChange={e => setEmail(e.target.value) }/>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for ='password'> Password </Label>
-                                    <Input type = 'password' required name='password' placeholder = 'Enter password' onChange={e => {}} />
+                                    <Input type = 'password' required name='password' value={password} required placeholder = 'Enter password' onChange={e => setPassword(e.target.value)} />
                                 </FormGroup >
-                                <Button> Signup </Button> {" "} <Link to= '/login'> Already have an account? </Link>
+                                <Button color='info'> Signup </Button> {" "} <Link to= '/login'> Already have an account? </Link>
                             </Form>
                         </div>
                     </Col>
