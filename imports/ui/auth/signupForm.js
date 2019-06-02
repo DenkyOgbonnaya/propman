@@ -21,21 +21,21 @@ const SignupForm = (props) => {
         })
     }
     return(
-        <div className= 'd-flex align-items-center'>
+        <div className= 'authForm'>
             <Container>
                 <Row>
                     <Col xs="12" md='5'> 
                         <div> 
                             <h3>PropMan </h3>
                             <p> 
-                                PropMan is a basic property management app dedicated to managing your properties like
+                                PropMan is a basic property management app that allow users to properly manage their properties like
                                 real housing estate, shopping complex and its tenants. collecting and managing rents etc.
                             </p>
                         </div>
                     </Col>
                     <Col xs="12" md='7'>
 
-                        <div >
+                        <div className= 'form'>
                             {isError ? <Alert color= 'danger'>oops!, error creacting account!. </Alert> : ''}
                             <Form onSubmit = {handleSubmit} >
                                 <FormGroup>

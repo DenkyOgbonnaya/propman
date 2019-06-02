@@ -25,19 +25,19 @@ const LoginForm = (props) => {
 
     }
     return(
-        <div> 
+        <div className='authForm'> 
             <Container>
                 <Row>
-                    <Col xs="6" md='5'> 
-                        <div> 
-                            <h3>PropMan </h3>
+                    <Col xs="12" md='5'> 
+                        <div className='form'> 
+                            <h3>PropMan </h3> 
                             <p> 
-                                PropMan is a basic property management app dedicated to managing your properties like
+                                PropMan is a basic property management app that allow users to properly manage their properties like
                                 real housing estate, shopping complex and its tenants. collecting and managing rents etc.
                             </p>
                         </div>
                     </Col>
-                    <Col>
+                    <Col xs="12" md='5' >
                         <div className = 'form'>
                             {isError ? <Alert color= 'danger'>Error: invalid email and password combination!. </Alert> : ''}  
                             <Form onSubmit = {handleSubmit}  > 
