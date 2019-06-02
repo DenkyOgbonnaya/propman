@@ -1,11 +1,13 @@
 import React from 'react';
 import {Redirect, Route} from 'react-router-dom';
+import {useGlobal } from 'reactn';
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const userToken = localStorage.cid
+    const[userData] = useGlobal('userData');
+
     return(
         <Route {...rest} render = {(props) => (
-            userToken ? <Component {...props} /> : <Redirect to = {{
+            userData.authToken ? <Component {...props} /> : <Redirect to = {{
                 pathname: '/login',
                 state: {from: props.location}
             }} />
