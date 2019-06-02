@@ -4,16 +4,19 @@ import ToggleAblePropertyForm from './toggleAblePropertyForm';
 import {fileToBase64} from './helper';
 import {addProperty, getProperties, updateProperty} from './dataProvider';
 import {useGlobal} from 'reactn';
+import Spinnar from '../../utils/spinner';
 
 const PropertyBoard = () => {
     const[properties, setProperties] = useState([]);
     const[userData] = useGlobal('userData');
+    const[loading, setLoading] = useState(true);
 
     useEffect( () => {
         getProperties(userData.userId)
         .then(response => {
             if(response.status === 'success'){
                 setProperties(response.data);
+                setLoading(false);
             }
         })
     }, []);
@@ -53,11 +56,18 @@ const PropertyBoard = () => {
                 <ToggleAblePropertyForm
                     submitCreate = {handleCreateSubmit}
                  />
+                 <br />
+
                 <h4>Existing </h4>
-                <EditablePropertyList 
-                properties = {properties}
-                submitUpdate = {handleUpdatesubmit}
-                />
+                {
+                    loading ? <Spinnar /> :
+                    <EditablePropertyList 
+                        properties = {properties}
+                        submitUpdate = {handleUpdatesubmit}
+                    />
+
+                }
+                
             </div>
         </div>
     )
