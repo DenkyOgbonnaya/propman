@@ -3,12 +3,14 @@ import EditablePropertyList from './editablePropertyList';
 import ToggleAblePropertyForm from './toggleAblePropertyForm';
 import {fileToBase64} from './helper';
 import {addProperty, getProperties, updateProperty} from './dataProvider';
+import {useGlobal} from 'reactn';
 
 const PropertyBoard = () => {
     const[properties, setProperties] = useState([]);
+    const[userData] = useGlobal('userData');
 
     useEffect( () => {
-        getProperties()
+        getProperties(userData.userId)
         .then(response => {
             if(response.status === 'success'){
                 setProperties(response.data);
@@ -22,9 +24,10 @@ const PropertyBoard = () => {
         updateProp(property);
     }
     async function createProperty(property){
+        const{userId, authToken} = userData;
         try{
             const base64Image = await fileToBase64(property.image);
-            const response = await addProperty({...property, ...{image: base64Image} });
+            const response = await addProperty({...property, ...{image: base64Image} }, {userId, authToken});
 
             if(response.status === 'success'){
                 setProperties(properties.concat(response.data))
@@ -32,9 +35,11 @@ const PropertyBoard = () => {
         }catch(err){}
     }
     const updateProp = property => {
+
+        const{userId, authToken} = userData;
         setProperties( properties.map(prop => prop._id === property._id ? Object.assign({}, prop, property) : prop))
 
-        updateProperty()
+        updateProperty(property._id, property, {userId, authToken})
         .then(response => {
             if(response.status === 'success'){
                 setProperties( properties.map(prop => prop._id === property._id ? Object.assign({}, prop, response.data) : prop))

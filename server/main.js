@@ -14,7 +14,21 @@ const Properties = new Mongo.Collection('properties');
       });
       //Generates POST, GET on '/api/properties' and GET, PUT DELETE on 'api/properties/:id'
     Api.addCollection(Properties, {
-      excludedEndpoints: ['patch']
+      excludedEndpoints: ['patch', 'getAll'],
+      routeOptions: {
+        authRequired: true
+      },
+      endpoints: {
+        post: {
+          authRequired: true
+        },
+        put: {
+          authRequired: true
+        },
+        delete: {
+          roleRequired: 'admin'
+        }
+      }
     });
 
     Api.addCollection(Meteor.users, {
@@ -32,8 +46,20 @@ const Properties = new Mongo.Collection('properties');
         }
     });
     //Adds a cutom route for getting a user's property/properties
-    Api.addRoute('users/:userId/properties', {authRequired: true}, {
-        get: () => Properties.find({owner: this.urlParams.userId})
+    Api.addRoute('users/:userId/properties', {
+        get: function (){
+          const userId= this.urlParams.userId;
+          const properties = Properties.find({owner: userId}).fetch()
+      
+          return{
+            status: 'success',
+            data: properties
+          }
+        }
+          
+        
+    
+      
     })
 
 }
