@@ -21,9 +21,9 @@ const PropertyBoard = (props) => {
         })
     }, []);
     return(
-        <div className='clearfix'> 
-            <Button className="btn btn-info float-right " onClick= {() => props.history.push('/admin/properties')} >Manage Properties </Button>
-            <br />
+        <div > 
+            <Button className="btn btn-info" onClick= {() => props.history.push('/admin/properties')} >Manage Properties </Button>
+            <hr />
             {
                 loading ? <Spinnar /> :
                 <PropertyList properties = {properties} />

@@ -10,7 +10,8 @@ const EditablePropertyList = ({properties, submitUpdate}) => {
                 <thead> 
                     <tr> 
                         <th> Name</th>
-                        <th> Price</th>
+                        <th> Type</th>
+                        <th> Rent</th>
                         <th> Status</th>
                         <th> Actions</th>
                     </tr>

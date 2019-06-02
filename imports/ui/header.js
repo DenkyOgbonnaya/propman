@@ -25,7 +25,7 @@ const Header = () => {
   }
   return (
     <div>
-      <Navbar color="light" light expand="md">
+      <Navbar color="light" light expand="xs">
         <NavbarBrand href="/">PropMan</NavbarBrand>
         <NavbarToggler onClick={ () => setIsOpen(!isOpen)} />
         <Collapse isOpen={isOpen} navbar>

@@ -9,7 +9,7 @@ const Property = ({property}) => {
             <CardBody> 
                 <CardTitle> {property.name} </CardTitle>
                 <CardSubtitle> <small className="text-muted">Rent: {property.rent}</small> </CardSubtitle>
-               <CardText> <small className="text-muted">{property.specs}</small> </CardText>
+               <CardText> <small className="text-muted">{property.specs.substring(0, 9)}...</small> </CardText>
             </CardBody>
         </Card>
     )

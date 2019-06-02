@@ -24,9 +24,10 @@ const EditableProperty = ({property, submitUpdate}) => {
     return(
         <tr> 
             <td>{property.name} </td>
-            <td>{property.price} </td>
+            <td>{property.type} </td>
+            <td>{property.rent} </td>
             <td>{property.status} </td>
-            <td> <Button color= 'info' onClick = { () => setOpenPropertyForm(true)}> Update </Button> </td>
+            <td> <Button color= 'info' size='sm' onClick = { () => setOpenPropertyForm(true)}> Update </Button> </td>
         </tr>
     )
 

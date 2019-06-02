@@ -59,7 +59,7 @@ const PropertyBoard = () => {
                 <ToggleAblePropertyForm
                     submitCreate = {handleCreateSubmit}
                  />
-                 <br />
+                 <hr />
 
                 <h4>Existing </h4>
                 {
