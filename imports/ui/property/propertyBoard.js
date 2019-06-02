@@ -1,20 +1,23 @@
-import React, {state, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button} from 'reactstrap';
 import PropertyList from './propertyList';
+import {getProperties} from '../admin/properties/dataProvider';
 
-const properties = [
-    {_id: 'udj', name: 'House on a hill', description: 'This house is on a fucking Hill'},
-    {_id: 'jjf', name: 'House on water', description: 'two bedroom flat beside   a fucking water'},
-    {_id: 'uddkksj', name: 'House on a hill', description: 'This house is on a fucking Hill'},
-    {_id: 'udllalj', name: 'House on a hill', description: 'This house is on a fucking Hill'},
-    {_id: 'udeowj', name: 'House on a hill', description: 'This house is on a fucking Hill'},
-    {_id: 'u;;fdj', name: 'House on a hill', description: 'This house is on a fucking Hill'},
 
-]
-const PropertyBoard = () => {
+const PropertyBoard = (props) => {
+    const[properties, setProperties] = useState([]);
+
+    useEffect( () => {
+        getProperties()
+        .then(response => {
+            if(response.status === 'success'){
+                setProperties(response.data);
+            }
+        })
+    })
     return(
         <div className='clearfix'> 
-        <Button className="btn btn-info float-right ">Manage Properties </Button>
+        <Button className="btn btn-info float-right " onClick= {() => props.history.push('/admin/properties')} >Manage Properties </Button>
         <br />
         <PropertyList properties = {properties} />
 
