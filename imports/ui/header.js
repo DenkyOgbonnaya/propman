@@ -21,7 +21,7 @@ const Header = () => {
 
   const logout = () => {
     const{userId, authToken} = userData;
-    logout({userId, authToken});
+    logout({userId, authToken}); 
   }
   return (
     <div>
