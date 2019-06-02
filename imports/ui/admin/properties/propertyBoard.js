@@ -5,6 +5,7 @@ import {fileToBase64} from './helper';
 import {addProperty, getProperties, updateProperty} from './dataProvider';
 import {useGlobal} from 'reactn';
 import Spinnar from '../../utils/spinner';
+import Swal from 'sweetalert2';
 
 const PropertyBoard = () => {
     const[properties, setProperties] = useState([]);
@@ -24,7 +25,7 @@ const PropertyBoard = () => {
         createProperty(property);
     }
     const handleUpdatesubmit = property => {
-        updateProp(property);
+        updatePropty(property);
     }
     async function createProperty(property){
         const{userId, authToken} = userData;
@@ -34,13 +35,15 @@ const PropertyBoard = () => {
 
             if(response.status === 'success'){
                 setProperties(properties.concat(response.data))
+                Swal.fire('New Property', 'Property successfully added!')
             }
         }catch(err){}
     }
-    const updateProp = property => {
+    const updatePropty = property => {
 
         const{userId, authToken} = userData;
-        setProperties( properties.map(prop => prop._id === property._id ? Object.assign({}, prop, property) : prop))
+        setProperties( properties.map(prop => prop._id === property._id ? Object.assign({}, prop, property) : prop));
+        Swal.fire('Updated Property', 'Property successfully updated!');
 
         updateProperty(property._id, property, {userId, authToken})
         .then(response => {
