@@ -1,5 +1,4 @@
 export const addProperty = (property, userData) => {
-    console.log('dp',userData.authToken)
     return fetch('/api/properties', {
         method: 'POST',
         headers: {

@@ -22,16 +22,15 @@ export const login = (credentials) => {
     .then(res => {return res.json()})
     .catch(err => console.log(err))
 }
-export const logout = (credentials) => {
+export const logout = (userData) => {
     return fetch('api/logout', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'X-Auth-Token': `${credentials.userToken}`,
-            'X-User-Id': `${credentials.userId}`
-        },
-        body: JSON.stringify(credentials)
+            'X-Auth-Token': `${userData.authToken}`,
+            'X-User-Id': `${userData.userId}`
+        }
     })
     .then(res => {return res.json()})
     .catch(err => console.log(err))

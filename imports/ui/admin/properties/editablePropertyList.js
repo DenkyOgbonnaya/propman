@@ -6,7 +6,7 @@ const EditablePropertyList = ({properties, submitUpdate}) => {
 
     return(
         <div> 
-            <Table responsive > 
+            <Table responsive size='sm'> 
                 <thead> 
                     <tr> 
                         <th> Name</th>

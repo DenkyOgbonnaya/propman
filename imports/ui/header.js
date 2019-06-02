@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useGlobal} from 'reactn';
 import {
   Collapse,
   Navbar,
@@ -11,40 +12,37 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem } from 'reactstrap';
+  import {NavLink as RRNavLink } from 'react-router-dom';
+  import {logout} from './auth/dataProvider';
 
-export default class Header extends React.Component {
-  constructor(props) {
-    super(props);
+const Header = () => {
+    const[isOpen, setIsOpen] = useState(false);
+    const[userData] = useGlobal('userData');
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
+  const logout = () => {
+    const{userId, authToken} = userData;
+    logout({userId, authToken});
   }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-  render() {
-    return (
-      <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">PropMan</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
+  return (
+    <div>
+      <Navbar color="light" light expand="md">
+        <NavbarBrand href="/">PropMan</NavbarBrand>
+        <NavbarToggler onClick={ () => setIsOpen(!isOpen)} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Denky</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">Logout</NavLink>
-              </NavItem>
+                {
+                  !userData.authToken ? '' :
+                  <NavLink to= '/' tag= {RRNavLink} onClick= { () => logout()} >Logout</NavLink>
+                }
               
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
-    );
-  }
+            </NavItem> 
+            
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </div>
+  );
 }
+
+export default Header;
