@@ -7,6 +7,7 @@ import {login} from './dataProvider';
 const LoginForm = (props) => {
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
+    const[errors, setErrors] = useState({});
     const[isError, setIsError] = useState(false);
     const[userData, setUserData] = useGlobal('userData');
 
@@ -14,6 +15,11 @@ const LoginForm = (props) => {
         e.preventDefault();
         const {from} = props.location.state || {from : {pathName: '/' }};
 
+        const validationErrors = validation({email, password});
+        setErrors(validationErrors);
+        if(Object.getOwnPropertyNames(validationErrors).length > 0){
+            return
+        }else
         login({email, password})
         .then(response => {
             if(response.status === 'success'){
@@ -22,6 +28,15 @@ const LoginForm = (props) => {
             }else
             setIsError(true);
         })
+
+    }
+    const validation = (user) => {
+        const errors = {}
+        if(!user.email || !/\S+@\S+\.\S+/.test(user.email) )
+            errors.email = 'valid email required';
+        if(!user.password)
+            errors.password = 'password required';
+        return errors;
 
     }
     return(
@@ -44,11 +59,13 @@ const LoginForm = (props) => {
                                 <FormGroup>
                                     <Label for= 'email'> Email </Label>
                                     <Input name='email' type='email' value={email} required placeholder = 'Enter email' onChange={e => setEmail(e.target.value) } />
+                                    <span style={{ color: 'red' }}>{ errors.email }</span> 
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for ='password'>Password </Label>
                                     <Input type = 'password' required name='password' value={password} placeholder = 'Enter password' 
                                     onChange={e => setPassword(e.target.value)} />
+                                    <span style={{ color: 'red' }}>{ errors.password }</span> 
                                 </FormGroup> <br />
                                 <Button color= 'info'> login </Button> {" "} <Link to= '/signup'> Don't have an account? </Link> <br />
                             </Form>
