@@ -17,7 +17,7 @@ const SignupForm = (props) => {
         setErrors(validationErrors);
         if(Object.getOwnPropertyNames(validationErrors).length > 0 ){
             return;
-        }else{
+        }else
         signup({username, email, password})
         .then(response => {
             if(response.status === 'success'){
@@ -80,5 +80,5 @@ const SignupForm = (props) => {
     
         </div>
     )
-}
+} 
 export default SignupForm;
